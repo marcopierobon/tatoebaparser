@@ -1,0 +1,24 @@
+﻿<Window x:Class="WPFLayout.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Button x:Name="sentenceFileButton" Content="Select sentence file" HorizontalAlignment="Left" Margin="68,25,0,0" VerticalAlignment="Top" Width="120" Click="sentenceFileButton_Click"/>
+        <Button x:Name="linkFileButton" Content="Select link file" HorizontalAlignment="Left" Margin="289,25,0,0" VerticalAlignment="Top" Width="120" Click="linkFileButton_Click"/>
+        <Label x:Name="sentenceFileLabel" Content="" HorizontalAlignment="Left" Margin="68,69,0,0" VerticalAlignment="Top" Width="200"/>
+        <Label x:Name="linkFileLabel" Content="" HorizontalAlignment="Left" Margin="289,69,0,0" VerticalAlignment="Top" Width="200"/>
+        <ListBox SelectionMode ="Single" Width="200" Height="100" Margin="68,150,249,69" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Name="SourceLangListBox" SelectionChanged="SourceLangListBox_SelectionChanged">
+            <ListBox.BindingGroup>
+                <BindingGroup/>
+            </ListBox.BindingGroup>
+        </ListBox>
+        <ListBox SelectionMode ="Single" Width="200" Height="100" Margin="289,150,28,69" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Name="DestLangListBox" SelectionChanged="DestLangListBox_SelectionChanged">
+        </ListBox>
+        <Button x:Name="generateOutputButton" Content="Generate output" HorizontalAlignment="Left" Margin="220,275,0,0" VerticalAlignment="Top" Width="113" Click="generateOutputButton_Click"/>
+        <StatusBar Height="20" Background="PowderBlue" Name="StatusBar" Margin="0,309,0,0">
+            <Label x:Name="progressValue" Content="Label"/>
+            <Label x:Name="temporaryResultValue" Content="Label"/>
+        </StatusBar>
+
+    </Grid>
+</Window>

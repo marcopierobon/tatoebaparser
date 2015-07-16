@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TatoebaParser", "TatoebaParser.csproj", "{4AE2B895-2F49-44CB-BAD8-85C69D1B8D9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Layout", "..\Layout\Layout.csproj", "{56BB9091-B7EE-4CD8-ABF2-B43399D21EBB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layout", "Layout", "{21BAA05C-9E60-4B66-829C-1356125C5B03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFLayout", "..\WPFLayout\WPFLayout.csproj", "{13EDF9D2-57A8-4716-A5A0-B3FFF3FED7A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,12 +17,15 @@ Global
 		{4AE2B895-2F49-44CB-BAD8-85C69D1B8D9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AE2B895-2F49-44CB-BAD8-85C69D1B8D9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AE2B895-2F49-44CB-BAD8-85C69D1B8D9A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{56BB9091-B7EE-4CD8-ABF2-B43399D21EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56BB9091-B7EE-4CD8-ABF2-B43399D21EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56BB9091-B7EE-4CD8-ABF2-B43399D21EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56BB9091-B7EE-4CD8-ABF2-B43399D21EBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13EDF9D2-57A8-4716-A5A0-B3FFF3FED7A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13EDF9D2-57A8-4716-A5A0-B3FFF3FED7A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13EDF9D2-57A8-4716-A5A0-B3FFF3FED7A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13EDF9D2-57A8-4716-A5A0-B3FFF3FED7A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{13EDF9D2-57A8-4716-A5A0-B3FFF3FED7A5} = {21BAA05C-9E60-4B66-829C-1356125C5B03}
 	EndGlobalSection
 EndGlobal

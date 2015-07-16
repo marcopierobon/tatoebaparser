@@ -6,11 +6,17 @@ using System.Text;
 
 namespace TatoebaParser.Helpers
 {
-    class ReadHelpers
+    public class ReadHelpers
     {
-        protected internal static StreamReader ReadLinkList(string directory, string linksFile, Dictionary<int, List<int>> matchDictionary)
+        public static StreamReader ReadLinkList(string directory, string linksFile, Dictionary<int, List<int>> matchDictionary)
         {
-            var reader = new StreamReader(File.OpenRead(directory + "\\" + linksFile));
+            var filePath = directory + "\\" + linksFile;
+            return ReadLinkList(filePath, matchDictionary);
+        }
+
+        public static StreamReader ReadLinkList(string filePath, Dictionary<int, List<int>> matchDictionary)
+        {
+            var reader = new StreamReader(File.OpenRead(filePath));
             var linkList = new List<string>();
             while (!reader.EndOfStream)
             {
@@ -39,9 +45,15 @@ namespace TatoebaParser.Helpers
             return reader;
         }
 
-        protected internal static Dictionary<int, string> ReadSentenceList(string directory, string sentencesFile, string sourceLang, string destLang)
+        public static Dictionary<int, string> ReadSentenceList(string directory, string sentencesFile, string sourceLang, string destLang)
         {
-            var reader = new StreamReader(File.OpenRead(directory + "\\" + sentencesFile));
+            var filePath = directory + "\\" + sentencesFile;
+            return ReadSentenceList(filePath, sourceLang, destLang);
+        }
+
+        public static Dictionary<int, string> ReadSentenceList(string filePath, string sourceLang, string destLang)
+        {
+            var reader = new StreamReader(File.OpenRead(filePath));
             var sentenceList = new Dictionary<int, string>();
             while (!reader.EndOfStream)
             {

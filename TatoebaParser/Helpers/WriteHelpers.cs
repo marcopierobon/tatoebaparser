@@ -6,9 +6,9 @@ using System.Text;
 
 namespace TatoebaParser.Helpers
 {
-    class WriteHelpers
+    public class WriteHelpers
     {
-        protected internal static void WriteToFileNoDuplicate(bool sameSourceSameLine, Dictionary<string, List<string>> results, StreamWriter writer)
+        public static void WriteToFileNoDuplicate(bool sameSourceSameLine, Dictionary<string, List<string>> results, StreamWriter writer)
         {
             //if the answer duplicates are not shown on the same line add several lines
             if (!sameSourceSameLine)
