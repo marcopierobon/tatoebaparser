@@ -1,0 +1,55 @@
+﻿<Window x:Class="WPFLayout.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wpfLayout="clr-namespace:WPFLayout"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        Title="MainWindow" Height="400" Width="525" Padding="0,0,10,0" MinHeight="400"  MinWidth="525" MaxHeight="400"  MaxWidth="525">
+    <Grid Height="400" Margin="0,2,0,-83" HorizontalAlignment="Right" Width="517" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="157*"/>
+            <RowDefinition Height="43*"/>
+        </Grid.RowDefinitions>
+        <Menu Height="25" Margin="0,-1,0,290" Padding="2">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New..."  Command="ApplicationCommands.New" />
+                <Separator />
+                <MenuItem Header="_Exit"  Command="Close"/>
+            </MenuItem>
+            <MenuItem Header="_?">
+                <MenuItem Header="_Help" Command="Help">
+                    <!--<MenuItem.Icon>
+                        <Image Source="Images/help.png" />
+                    </MenuItem.Icon>-->
+                </MenuItem>
+                <MenuItem Header="_About" Command="ApplicationCommands.Properties">
+                    <!--<MenuItem.Icon>
+                        <Image Source="Images/about.png" />
+                    </MenuItem.Icon>-->
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <Button Grid.Row="0" x:Name="SentenceFileButton" Content="Select sentence file" HorizontalAlignment="Left" Margin="87,32,0,0" VerticalAlignment="Top" Width="120" Click="sentenceFileButton_Click"/>
+        <Button Grid.Row="0" x:Name="LinkFileButton" Content="Select link file" HorizontalAlignment="Left" Margin="308,32,0,0" VerticalAlignment="Top" Width="120" Click="linkFileButton_Click"/>
+        <Label Grid.Row="0" x:Name="SentenceFileLabel" Content="" HorizontalAlignment="Left" Margin="48,57,0,0" VerticalAlignment="Top" Width="200" />
+        <Label Grid.Row="0" x:Name="LinkFileLabel" Content="" HorizontalAlignment="Left" Margin="269,57,0,0" VerticalAlignment="Top" Width="200"/>
+        <ListBox Grid.Row="0" SelectionMode ="Single" Width="200" Height="100" Margin="48,97,269,117" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Name="SourceLangListBox" SelectionChanged="SourceLangListBox_SelectionChanged" Padding="0,0,10,0">
+            <ListBox.BindingGroup>
+                <BindingGroup/>
+            </ListBox.BindingGroup>
+        </ListBox>
+        <ListBox Grid.Row="0" SelectionMode ="Single" Width="200" Height="100" Margin="269,97,48,117" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Visible" Name="DestLangListBox" SelectionChanged="DestLangListBox_SelectionChanged">
+        </ListBox>
+        <Button x:Name="GenerateOutputButton" Content="Generate output" HorizontalAlignment="Left" Margin="315,12,0,0" VerticalAlignment="Top" Width="113" Click="generateOutputButton_Click" RenderTransformOrigin="1.177,0.7" Grid.Row="1"/>
+        <Button Grid.Row="0" x:Name="SaveAsButton" Content="Save as" HorizontalAlignment="Left" Margin="308,237,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
+        <Label Grid.Row="0" x:Name="OutputFileNameLabel" Content="" HorizontalAlignment="Left" Margin="269,268,0,0" VerticalAlignment="Top" Width="200"/>
+        <RadioButton x:Name="DoNotAllowDuplicateRadio" GroupName="DuplicateOptions" IsChecked="True" Grid.Row="0" Content="Do not allow duplicates" HorizontalAlignment="Left" Margin="66,240,0,0" VerticalAlignment="Top"  Width="160" />
+        <RadioButton x:Name="AllowDuplicateRadio" GroupName="DuplicateOptions" Grid.Row="0" Content="Allow duplicates" HorizontalAlignment="Left" Margin="66,260,0,0" VerticalAlignment="Top" Width="144"/>
+        <Label Grid.Row="0" Content="Duplicate options" HorizontalAlignment="Left" Margin="48,214,0,0" VerticalAlignment="Top" Width="144"/>
+        <Label Grid.Row="0" Content="Concatenate the same source" HorizontalAlignment="Left" Margin="48,289,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
+        <RadioButton x:Name="OnSameLineRadio" GroupName="Concatenation" Content="On the same line" HorizontalAlignment="Left" Margin="66,17,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <RadioButton x:Name="OnDifferentLinesRadio" GroupName="Concatenation" Content="On different lines" HorizontalAlignment="Left" Margin="66,1,0,0" VerticalAlignment="Top"
+                     Grid.Row="1" IsChecked="True"/>
+        <Image x:Name="LoadingGifImage" Grid.Row="0" gif:ImageBehavior.AnimatedSource="../Images/loadingImage.gif" Width="100" Height="100" Margin="322,286,95,14" Grid.RowSpan="2" Visibility="Hidden" />
+        
+    </Grid>
+</Window>

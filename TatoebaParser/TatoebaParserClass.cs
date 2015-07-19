@@ -16,51 +16,53 @@ namespace TatoebaParser
 {
     public class TatoebaParserClass
     {
-        private string SentencesFilePath = null;
-        private string LinksFilePath = null;
-        private string SourceLang = null;
-        private string DestLang = null;
+        private readonly string _sentencesFilePath = null;
+        private readonly string _linksFilePath = null;
+        private readonly string _outputFilePath = null;
+        private readonly string _sourceLang = null;
+        private readonly string _destLang = null;
+
+        private readonly bool _duplicatesEnabled = false;
+        private readonly bool _sameSourceSameLine = false;
 
         public static void Main()
         {
         }
 
-        public async Task<int> Run()
+        public async Task<int> Run(Action callback)
         {
             var t = new Task<int>(() =>
             {
-                var destFile = "output.txt";
-                var duplicatesEnabled = false;
-                var sameSourceSameLine = true;
-
-                var directory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
                 var matchDictionary = new Dictionary<int, List<int>>();
                 var results = new Dictionary<string, List<string>>();
 
-                var sentenceList = ReadHelpers.ReadSentenceList(SentencesFilePath, SourceLang, DestLang);
-                ReadHelpers.ReadLinkList(LinksFilePath, matchDictionary);
+                var sentenceList = ReadHelpers.ReadSentenceList(_sentencesFilePath, _sourceLang, _destLang);
+                ReadHelpers.ReadLinkList(_linksFilePath, matchDictionary);
 
-                var writer = new StreamWriter(File.OpenWrite(directory + "\\" + destFile));
-                ExtractMatchingStrings(matchDictionary, sentenceList, duplicatesEnabled, SourceLang, DestLang, results, writer);
+                var writer = new StreamWriter(_outputFilePath, false);
+                ExtractMatchingStrings(matchDictionary, sentenceList, _duplicatesEnabled, _sourceLang, _destLang, results, writer);
                 //if the duplicates are not enabled, the writing is performed at the end
-                if (!duplicatesEnabled)
+                if (!_duplicatesEnabled)
                 {
-                    WriteHelpers.WriteToFileNoDuplicate(sameSourceSameLine, results, writer);
+                    WriteHelpers.WriteToFileNoDuplicate(_sameSourceSameLine, results, writer);
                 }
                 writer.Close();
+                callback();
                 return 0;
             });
             t.Start();
             return 0;
         }
 
-        public TatoebaParserClass(string sentencesFilePath, string linksFilePath, string sourceLang, string destLang)
+        public TatoebaParserClass(string sentencesFilePath, string linksFilePath, string outputFilePath, string sourceLang, string destLang, bool duplicatesEnabled, bool sameSourceSameLine)
         {
-            SentencesFilePath = sentencesFilePath;
-            LinksFilePath = linksFilePath;
-            SourceLang = sourceLang;
-            DestLang = destLang;
+            _sentencesFilePath = sentencesFilePath;
+            _linksFilePath = linksFilePath;
+            _outputFilePath = outputFilePath;
+            _sourceLang = sourceLang;
+            _destLang = destLang;
+            _duplicatesEnabled = duplicatesEnabled;
+            _sameSourceSameLine = sameSourceSameLine;
         }
 
         public static void ExtractMatchingStrings(Dictionary<int, List<int>> matchDictionary, Dictionary<int, string> sentenceList, bool duplicatesEnabled,
@@ -80,29 +82,28 @@ namespace TatoebaParser
                             DictionaryHelpers.InsertMatchWithDuplicates(sentenceList, outerElement, innerElement, sourceLang, destLang, writer);
                         }
                     }
-                        //go through another language: if only the outer element is a match, another inner element is also, can skip the current
+                    //go through another language: if only the outer element is a match, another inner element is also, can skip the current
                     else if (sentenceList.ContainsKey(outerElement))
                     {
                         continue;
                     }
-                        //go through another language: if only the inner element is a match, another inner element is also, must find it in the current list
+                    //go through another language: if only the inner element is a match, another inner element is also, must find it in the current list
                     else if (sentenceList.ContainsKey(innerElement))
                     {
-                        int element = innerElement;
+                        var element = innerElement;
                         var availableSentencesForSearch = matchDictionary[outerElement].Where(x => x != element);
                         foreach (var altInnerElement in availableSentencesForSearch)
                         {
                             //direct translation
-                            if (sentenceList.ContainsKey(altInnerElement) && sentenceList.ContainsKey(innerElement))
+                            if (!sentenceList.ContainsKey(altInnerElement) || !sentenceList.ContainsKey(innerElement))
+                                continue;
+                            if (!duplicatesEnabled)
+                                DictionaryHelpers.InsertMatchNoDuplicates(sentenceList, altInnerElement, innerElement, sourceLang, destLang,
+                                    results);
+                            else
                             {
-                                if (!duplicatesEnabled)
-                                    DictionaryHelpers.InsertMatchNoDuplicates(sentenceList, altInnerElement, innerElement, sourceLang, destLang,
-                                        results);
-                                else
-                                {
-                                    DictionaryHelpers.InsertMatchWithDuplicates(sentenceList, altInnerElement, innerElement, sourceLang, destLang,
-                                        writer);
-                                }
+                                DictionaryHelpers.InsertMatchWithDuplicates(sentenceList, altInnerElement, innerElement, sourceLang, destLang,
+                                    writer);
                             }
                         }
                     }

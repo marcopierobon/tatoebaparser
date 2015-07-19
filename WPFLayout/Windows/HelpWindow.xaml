@@ -1,0 +1,9 @@
+﻿<Window x:Class="WPFLayout.Windows.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="HelpWindow" Height="300" Width="300">
+    <Grid Margin="0,0,-108,-131" Width="400" Height="400" HorizontalAlignment="Left">
+        <TextBox HorizontalAlignment="Left" Height="248" Margin="10,10,0,0" TextWrapping="Wrap" Text="In order to extract the sentences:&#xD;&#xA;    - Download the sentence and the link files from tatoeba.org/eng/downloads&#xD;&#xA;    - Select them in this program interface&#xD;&#xA;    - Select the source language (the language that will be translated)&#xD;&#xA;    - Select the destination language (the language in which the sentences will bt translated)&#xD;&#xA;    - Select duplication options (allow or not allow duplicates in the end file)&#xD;&#xA;    - Select concatenation options (combine sentences in the destination language when they match the same sentence in the source language)&#xD;&#xA;    - Choose a destination file&#xD;&#xA;    - Click on the Process button and get the result" VerticalAlignment="Top" Width="274" VerticalScrollBarVisibility="Visible"/>
+
+    </Grid>
+</Window>

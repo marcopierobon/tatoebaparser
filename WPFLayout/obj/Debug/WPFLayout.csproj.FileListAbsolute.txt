@@ -13,3 +13,5 @@
 \\vmware-host\Shared Folders\Documents\Visual Studio 2012\Projects\TatoebaParser\WPFLayout\bin\Debug\TatoebaParser.exe
 \\vmware-host\Shared Folders\Documents\Visual Studio 2012\Projects\TatoebaParser\WPFLayout\bin\Debug\TatoebaParser.pdb
 \\vmware-host\Shared Folders\Documents\Visual Studio 2012\Projects\TatoebaParser\WPFLayout\bin\Debug\WPFLayout.exe.config
+\\vmware-host\Shared Folders\Documents\Visual Studio 2012\Projects\TatoebaParser\WPFLayout\obj\Debug\GeneratedInternalTypeHelper.g.cs
+\\vmware-host\Shared Folders\Documents\Visual Studio 2012\Projects\TatoebaParser\WPFLayout\obj\Debug\WPFLayout_MarkupCompile.lref

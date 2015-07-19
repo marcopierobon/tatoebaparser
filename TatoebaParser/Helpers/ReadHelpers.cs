@@ -17,7 +17,6 @@ namespace TatoebaParser.Helpers
         public static StreamReader ReadLinkList(string filePath, Dictionary<int, List<int>> matchDictionary)
         {
             var reader = new StreamReader(File.OpenRead(filePath));
-            var linkList = new List<string>();
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
@@ -45,32 +44,79 @@ namespace TatoebaParser.Helpers
             return reader;
         }
 
+
         public static Dictionary<int, string> ReadSentenceList(string directory, string sentencesFile, string sourceLang, string destLang)
         {
             var filePath = directory + "\\" + sentencesFile;
             return ReadSentenceList(filePath, sourceLang, destLang);
         }
 
-        public static Dictionary<int, string> ReadSentenceList(string filePath, string sourceLang, string destLang)
+        /// <summary>
+        /// Read the first 100 lines of the file to verify it is ok
+        /// </summary>
+        /// <param name="filePath">Path of the sentence file</param>
+        /// <returns>True if it is a correct sentence file, false otherwise</returns>
+        public static bool IsSentenceFileCorrect(string filePath)
         {
             var reader = new StreamReader(File.OpenRead(filePath));
             var sentenceList = new Dictionary<int, string>();
-            while (!reader.EndOfStream)
+            var linesCount = 0;
+            while (!reader.EndOfStream && linesCount<100)
             {
                 var line = reader.ReadLine();
                 if (line != null)
                 {
                     var values = line.Split('\t');
                     if (values.Length < 3)
-                        continue;
-                    var id = 0;
-                    int.TryParse(values[0], out id);
-                    var lang = values[1];
+                        return false;
+                }
+                linesCount++;
+            }
+            return true;
+        }
 
-                    if (lang.Equals(sourceLang) || lang.Equals(destLang))
-                    {
-                        sentenceList.Add(id, line);
-                    }
+        /// <summary>
+        /// Read the first 100 lines of the file to verify it is ok
+        /// </summary>
+        /// <param name="filePath">Path of the link file</param>
+        /// <returns>True if it is a correct link file, false otherwise</returns>
+        public static bool IsLinkFileCorrect(string filePath)
+        {
+            var reader = new StreamReader(File.OpenRead(filePath));
+            var linesCount = 0;
+            while (!reader.EndOfStream && linesCount < 100)
+            {
+                var line = reader.ReadLine();
+                if (line != null)
+                {
+                    var values = line.Split('\t');
+                    if (values.Length != 2)
+                        return false;
+                }
+                linesCount++;
+            }
+            return true;
+        }
+        
+        public static
+                Dictionary<int, string> ReadSentenceList(string filePath, string sourceLang, string destLang)
+        {
+            var reader = new StreamReader(File.OpenRead(filePath));
+            var sentenceList = new Dictionary<int, string>();
+            while (!reader.EndOfStream)
+            {
+                var line = reader.ReadLine();
+                if (line == null) continue;
+                var values = line.Split('\t');
+                if (values.Length < 3)
+                    continue;
+                var id = 0;
+                int.TryParse(values[0], out id);
+                var lang = values[1];
+
+                if (lang.Equals(sourceLang) || lang.Equals(destLang))
+                {
+                    sentenceList.Add(id, line);
                 }
             }
             reader.Close();

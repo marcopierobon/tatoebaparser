@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace TatoebaParser.Helpers
                 foreach (var outerElement in results.Keys)
                 {
                     foreach (var innerElement in results[outerElement])
-                        writer.WriteLine(String.Format("{0}{1}{2}", outerElement, "\t".ToString(), innerElement));
+                        writer.WriteLine(String.Format("{0}{1}{2}", outerElement, "\t".ToString(CultureInfo.InvariantCulture), innerElement));
                 }
             }
             //if the answer duplicates are shown on the same line concat them
@@ -24,14 +25,10 @@ namespace TatoebaParser.Helpers
             {
                 foreach (var outerElement in results.Keys)
                 {
-                    var result = "";
-                    foreach (var innerElement in results[outerElement])
-                    {
-                        result = innerElement + " / " + result;
-                    }
+                    var result = results[outerElement].Aggregate("", (current, innerElement) => innerElement + " / " + current);
                     if (result.Length > 3)
                         result = result.Substring(0, result.Length - 3);
-                    writer.WriteLine(String.Format("{0}{1}{2}", outerElement, "\t".ToString(), result));
+                    writer.WriteLine(String.Format("{0}{1}{2}", outerElement, "\t".ToString(CultureInfo.InvariantCulture), result));
                 }
             }
         }
